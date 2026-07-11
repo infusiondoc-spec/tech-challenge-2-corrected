@@ -1,3 +1,14 @@
+## Project Results
+
+- Successfully provisioned an Amazon EKS cluster using Terraform.
+- Created a production-style VPC with public and private subnets.
+- Configured a managed Amazon EKS node group.
+- Deployed a containerized application from Amazon ECR.
+- Exposed the application through an AWS LoadBalancer.
+- Verified Kubernetes node health and system pods.
+- Successfully displayed the application in a web browser.
+- Resolved a real-world EKS NodeCreationFailure through infrastructure troubleshooting.
+
 Business Value
 
 This project demonstrates how modern organizations can automate the deployment and management of containerized applications using Amazon EKS, Terraform, and Kubernetes. By defining infrastructure as code and deploying applications through Kubernetes, companies can reduce manual configuration, improve consistency, and accelerate software delivery.
