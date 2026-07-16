@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-2'
+        ECR_REPOSITORY = 'hello-world-app'
+        IMAGE_TAG = 'latest'
+    }
+   
+    stages {
+        stage('Checkout Source Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+    steps {
+        dir('app') {
+            bat 'docker build -t %ECR_REPOSITORY%:%IMAGE_TAG% .'
+        }
+    }
+}
+
+stage('Login to Amazon ECR') {
+    steps {
+        bat '''
+        aws ecr get-login-password --region %AWS_REGION% ^
+        | docker login --username AWS --password-stdin 891377228691.dkr.ecr.%AWS_REGION%.amazonaws.com
+        '''
+    }
+}
+
+stage('Tag and Push Docker Image') {
+    steps {
+        bat '''
+        docker tag %ECR_REPOSITORY%:%IMAGE_TAG% 891377228691.dkr.ecr.%AWS_REGION%.amazonaws.com/%ECR_REPOSITORY%:%IMAGE_TAG%
+        docker push 891377228691.dkr.ecr.%AWS_REGION%.amazonaws.com/%ECR_REPOSITORY%:%IMAGE_TAG%
+        '''
+    }
+}
+
+stage('Deploy to Amazon EKS with Helm') {
+    steps {
+        bat '''
+        aws eks update-kubeconfig --region %AWS_REGION% --name tech-challenge-2-eks
+
+        helm upgrade --install hello-world .\helm\hello-world-chart ^
+          --set image.repository=891377228691.dkr.ecr.%AWS_REGION%.amazonaws.com/%ECR_REPOSITORY% ^
+          --set image.tag=%IMAGE_TAG%
+        '''
+    }
+}

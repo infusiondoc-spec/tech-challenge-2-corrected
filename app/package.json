@@ -1,0 +1,12 @@
+{
+  "name": "tech-challenge-2-app",
+  "version": "1.0.0",
+  "description": "Hello World Node.js application for Tech Challenge 2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
