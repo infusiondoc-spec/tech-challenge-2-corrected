@@ -45,7 +45,7 @@ stage('Deploy to Amazon EKS with Helm') {
         bat '''
         aws eks update-kubeconfig --region %AWS_REGION% --name tech-challenge-2-eks
 
-        helm upgrade --install hello-world .\helm\hello-world-chart ^
+        helm upgrade --install hello-world ./helm/hello-world-chart
           --set image.repository=891377228691.dkr.ecr.%AWS_REGION%.amazonaws.com/%ECR_REPOSITORY% ^
           --set image.tag=%IMAGE_TAG%
         '''
