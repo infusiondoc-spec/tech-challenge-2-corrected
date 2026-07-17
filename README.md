@@ -195,7 +195,7 @@ The following screenshots document each major phase of the project from applicat
 
 ### 13. Argo CD Healthy & Synced
 
-![Healthy Synced](screenshots/14-argocd-healthy-synced.png)
+![Healthy Synced](screenshots/14-argocd-healthy-synced.png)s
 
 ---
 
